@@ -18,7 +18,7 @@ Imagemagick: https://www.imagemagick.org/script/index.php
 Perl: https://www.perl.org/get.html 
 
 ### Download and extract sample files to SampleFLIR folder on desktop:
-https://github.com/gtatters/Thermimage/blob/master/Uploads/SampleFLIR.zip
+https://github.com/gtatters/ThermImageJ/blob/master/SampleFLIR.zip
 
 ```{bash}
 cd ~/IRconvert/SampleFLIR
@@ -26,7 +26,7 @@ ls
 ```
 
 ### Download and extract this perl script (split.pl) to a scripts folder in an IRconvert folder:
-https://github.com/gtatters/Thermimage/blob/master/Uploads/split.pl
+https://github.com/gtatters/ThermimageBash/blob/master/Uploads/split.pl
 
 ```{bash}
 cd ~/IRconvert/scripts
@@ -77,11 +77,12 @@ rm -r temp
 
 Which produces the following output:
 
-https://github.com/gtatters/Thermimage/blob/master/Uploads/CSQconverted.avi?raw=true
+https://github.com/gtatters/ThermimageBash/blob/master/Uploads/CSQconverted.avi?raw=true
 
 The above avi should open up in VLC player, but may or may not play properly.  In ImageJ, with the ffmpeg plugin installed, the jpegls compression should work.
 
-![Sample PNG](https://github.com/gtatters/Thermimage/blob/master/Uploads/frame00001.png?raw=true)
+<img src='Uploads/frame00001.png' align="centre">
+
 The above PNG file is a sample image of the 16 bit grayscale image.  Although it looks washed out, it can be imported into ImageJ and the Brightness/Contrast changed for optimal viewing.  
 
 
@@ -126,8 +127,9 @@ rm -r temp
 
 Which produces the following output:
 
-https://github.com/gtatters/Thermimage/blob/master/Uploads/SEQconvertedjpegls.avi?raw=true
-https://github.com/gtatters/Thermimage/blob/master/Uploads/SEQconvertedpng.avi?raw=true
+https://github.com/gtatters/ThermimageBash/blob/master/Uploads/SEQconvertedjpegls.avi?raw=true
+
+https://github.com/gtatters/ThermimageBash/blob/master/Uploads/SEQconvertedpng.avi?raw=true
 
 Note: the above avi should open up in VLC player, but may or may not play properly.  In ImageJ, with the ffmpeg plugin installed, the jpegls compression should work.
 
@@ -146,7 +148,7 @@ exiftool ~/IRconvert/SampleFLIR/SampleFLIR.jpg -b -RawThermalImage | convert - g
 exiftool ~/IRconvert/SampleFLIR/SampleFLIR.jpg -*Planck*
 ```
 
-![Sample PNG](https://github.com/gtatters/Thermimage/blob/master/Uploads/JPGconverted.png?raw=true)
+<img src='Uploads/JPGconverted.png' align="centre">
 
 
 

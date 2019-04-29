@@ -1,4 +1,4 @@
-Command Line Instructions for Converting FLIR Video and JPG files for Image Analysis
+Command Line Instructions for Converting FLIR Video and JPG files for import to ImageJ
 ================
 
 These instructions are for converting certain flir file types using command line tools. Variants of these functions are also incorporated into the Thermimage package through the functions, convertflirJPG(), converflirVID(), and ffmpegcall(). If these functions are not working in R, try following the command line instructions here to diagnose your system.
@@ -13,7 +13,7 @@ Perl: <https://www.perl.org/get.html>
 
 ### Download and extract sample files to SampleFLIR folder on desktop:
 
-<https://github.com/gtatters/Thermimage/blob/master/Uploads/SampleFLIR.zip>
+<https://github.com/gtatters/ThermImageJ/blob/master/SampleFLIR.zip>
 
 ``` bash
 cd ~/IRconvert/SampleFLIR
@@ -24,6 +24,7 @@ ls
     ## SEQconverted.avi
     ## SEQconvertedjpegls.avi
     ## SEQconvertedpng.avi
+    ## SampleFLIR.avi
     ## SampleFLIR.csq
     ## SampleFLIR.jpg
     ## SampleFLIR.seq
@@ -31,19 +32,32 @@ ls
 
 ### Download and extract this perl script (split.pl) to a scripts folder in an IRconvert folder:
 
-<https://github.com/gtatters/Thermimage/blob/master/Uploads/split.pl>
+<https://github.com/gtatters/ThermimageBash/blob/master/Uploads/split.pl>
 
 ``` bash
 cd ~/IRconvert/scripts
 ls
 ```
 
+    ## ConvertACQtoTXT
     ## ConvertCSQtoAVI
+    ## ConvertFCFtoAVI
+    ## ConvertFLIRJPG.sh
+    ## ConvertFLIRJPGtoRAW
+    ## ConvertFLIRJPGtoTIFF
+    ## ConvertFLIRRAWtoTIFF
     ## ConvertSEQtoAVI
+    ## ConverttoGrayscale
+    ## ExtractAllFLIRJPGs
+    ## IRFileImport.R
     ## ImageJRad2Temp.txt
+    ## ImportRaw_FCFsettings.jpeg
     ## Process_Folder GUI mod.ijm
     ## Process_Folder.ijm
     ## Process_Folder_TIFF2Temp.ijm
+    ## SEQtoVID_Rima
+    ## exiftool commands.docx
+    ## ffmpegscript
     ## imagejscript_rad2temp
     ## split.pl
     ## split_fff.pl
@@ -51,6 +65,7 @@ ls
     ## split_tiff.pl
     ## test.pl
     ## test2.pl
+    ## tryopts.sh
     ## workflow.txt
     ## workflow_windows.txt
 
@@ -92,7 +107,6 @@ cd ~/IRconvert
 rm -r temp
 ```
 
-    ## Processing /Users/GlennTattersall/IRconvert/SampleFLIR/SampleFLIR.csq
     ## frame00001.fff
     ## frame00002.fff
     ## frame00003.fff
@@ -119,7 +133,6 @@ rm -r temp
     ##     7 image files read
     ## temp/thermalvid.raw
     ## 
-    ## Processing temp/thermalvid.raw
     ## temp/frame00001.jpegls
     ## temp/frame00002.jpegls
     ## temp/frame00003.jpegls
@@ -128,18 +141,18 @@ rm -r temp
     ## temp/frame00006.jpegls
     ## temp/frame00007.jpegls
     ## 
-    ## ffmpeg version 3.4 Copyright (c) 2000-2017 the FFmpeg developers
-    ##   built with Apple LLVM version 9.0.0 (clang-900.0.38)
-    ##   configuration: --prefix=/usr/local/Cellar/ffmpeg/3.4 --enable-shared --enable-pthreads --enable-version3 --enable-hardcoded-tables --enable-avresample --cc=clang --host-cflags= --host-ldflags= --enable-gpl --enable-libmp3lame --enable-libvpx --enable-libx264 --enable-libxvid --enable-opencl --enable-videotoolbox --disable-lzma
-    ##   libavutil      55. 78.100 / 55. 78.100
-    ##   libavcodec     57.107.100 / 57.107.100
-    ##   libavformat    57. 83.100 / 57. 83.100
-    ##   libavdevice    57. 10.100 / 57. 10.100
-    ##   libavfilter     6.107.100 /  6.107.100
-    ##   libavresample   3.  7.  0 /  3.  7.  0
-    ##   libswscale      4.  8.100 /  4.  8.100
-    ##   libswresample   2.  9.100 /  2.  9.100
-    ##   libpostproc    54.  7.100 / 54.  7.100
+    ## ffmpeg version 4.1 Copyright (c) 2000-2018 the FFmpeg developers
+    ##   built with Apple LLVM version 10.0.0 (clang-1000.11.45.5)
+    ##   configuration: --prefix=/usr/local/Cellar/ffmpeg/4.1_1 --enable-shared --enable-pthreads --enable-version3 --enable-hardcoded-tables --enable-avresample --cc=clang --host-cflags= --host-ldflags= --enable-ffplay --enable-gpl --enable-libmp3lame --enable-libopus --enable-libsnappy --enable-libtheora --enable-libvorbis --enable-libvpx --enable-libx264 --enable-libx265 --enable-libxvid --enable-lzma --enable-opencl --enable-videotoolbox
+    ##   libavutil      56. 22.100 / 56. 22.100
+    ##   libavcodec     58. 35.100 / 58. 35.100
+    ##   libavformat    58. 20.100 / 58. 20.100
+    ##   libavdevice    58.  5.100 / 58.  5.100
+    ##   libavfilter     7. 40.101 /  7. 40.101
+    ##   libavresample   4.  0.  0 /  4.  0.  0
+    ##   libswscale      5.  3.100 /  5.  3.100
+    ##   libswresample   3.  3.100 /  3.  3.100
+    ##   libpostproc    55.  3.100 / 55.  3.100
     ## Input #0, image2, from '/Users/GlennTattersall/IRconvert/temp/frame%05d.jpegls':
     ##   Duration: 00:00:00.23, start: 0.000000, bitrate: N/A
     ##     Stream #0:0: Video: jpegls, gray16le(bt470bg/unknown/unknown), 1024x768, lossless, 30 fps, 30 tbr, 30 tbn, 30 tbc
@@ -149,25 +162,25 @@ rm -r temp
     ## Incompatible pixel format 'gray16be' for codec 'jpegls', auto-selecting format 'gray16le'
     ## Output #0, avi, to 'CSQconverted.avi':
     ##   Metadata:
-    ##     ISFT            : Lavf57.83.100
+    ##     ISFT            : Lavf58.20.100
     ##     Stream #0:0: Video: jpegls (MJLS / 0x534C4A4D), gray16le, 1024x768, q=2-31, 200 kb/s, 30 fps, 30 tbn, 30 tbc
     ##     Metadata:
-    ##       encoder         : Lavc57.107.100 jpegls
-    ## frame=    7 fps=0.0 q=-0.0 Lsize=    3656kB time=00:00:00.23 bitrate=128339.8kbits/s speed=1.13x    
+    ##       encoder         : Lavc58.35.100 jpegls
+    ## frame=    7 fps=0.0 q=-0.0 Lsize=    3656kB time=00:00:00.23 bitrate=128339.8kbits/s speed=1.08x    
     ## video:3650kB audio:0kB subtitle:0kB other streams:0kB global headers:0kB muxing overhead: 0.156768%
     ## 
-    ## ffmpeg version 3.4 Copyright (c) 2000-2017 the FFmpeg developers
-    ##   built with Apple LLVM version 9.0.0 (clang-900.0.38)
-    ##   configuration: --prefix=/usr/local/Cellar/ffmpeg/3.4 --enable-shared --enable-pthreads --enable-version3 --enable-hardcoded-tables --enable-avresample --cc=clang --host-cflags= --host-ldflags= --enable-gpl --enable-libmp3lame --enable-libvpx --enable-libx264 --enable-libxvid --enable-opencl --enable-videotoolbox --disable-lzma
-    ##   libavutil      55. 78.100 / 55. 78.100
-    ##   libavcodec     57.107.100 / 57.107.100
-    ##   libavformat    57. 83.100 / 57. 83.100
-    ##   libavdevice    57. 10.100 / 57. 10.100
-    ##   libavfilter     6.107.100 /  6.107.100
-    ##   libavresample   3.  7.  0 /  3.  7.  0
-    ##   libswscale      4.  8.100 /  4.  8.100
-    ##   libswresample   2.  9.100 /  2.  9.100
-    ##   libpostproc    54.  7.100 / 54.  7.100
+    ## ffmpeg version 4.1 Copyright (c) 2000-2018 the FFmpeg developers
+    ##   built with Apple LLVM version 10.0.0 (clang-1000.11.45.5)
+    ##   configuration: --prefix=/usr/local/Cellar/ffmpeg/4.1_1 --enable-shared --enable-pthreads --enable-version3 --enable-hardcoded-tables --enable-avresample --cc=clang --host-cflags= --host-ldflags= --enable-ffplay --enable-gpl --enable-libmp3lame --enable-libopus --enable-libsnappy --enable-libtheora --enable-libvorbis --enable-libvpx --enable-libx264 --enable-libx265 --enable-libxvid --enable-lzma --enable-opencl --enable-videotoolbox
+    ##   libavutil      56. 22.100 / 56. 22.100
+    ##   libavcodec     58. 35.100 / 58. 35.100
+    ##   libavformat    58. 20.100 / 58. 20.100
+    ##   libavdevice    58.  5.100 / 58.  5.100
+    ##   libavfilter     7. 40.101 /  7. 40.101
+    ##   libavresample   4.  0.  0 /  4.  0.  0
+    ##   libswscale      5.  3.100 /  5.  3.100
+    ##   libswresample   3.  3.100 /  3.  3.100
+    ##   libpostproc    55.  3.100 / 55.  3.100
     ## Input #0, image2, from '/Users/GlennTattersall/IRconvert/temp/frame%05d.jpegls':
     ##   Duration: 00:00:00.23, start: 0.000000, bitrate: N/A
     ##     Stream #0:0: Video: jpegls, gray16le(bt470bg/unknown/unknown), 1024x768, lossless, 30 fps, 30 tbr, 30 tbn, 30 tbc
@@ -176,14 +189,15 @@ rm -r temp
     ## Press [q] to stop, [?] for help
     ## Output #0, image2, to 'output/frame%05d.png':
     ##   Metadata:
-    ##     encoder         : Lavf57.83.100
+    ##     encoder         : Lavf58.20.100
     ##     Stream #0:0: Video: png, gray16be, 1024x768, q=2-31, 200 kb/s, 30 fps, 30 tbn, 30 tbc
     ##     Metadata:
-    ##       encoder         : Lavc57.107.100 png
-    ## frame=    7 fps=0.0 q=-0.0 Lsize=N/A time=00:00:00.23 bitrate=N/A speed=0.588x    
+    ##       encoder         : Lavc58.35.100 png
+    ## frame=    7 fps=0.0 q=-0.0 Lsize=N/A time=00:00:00.23 bitrate=N/A speed=0.818x    
     ## video:4758kB audio:0kB subtitle:0kB other streams:0kB global headers:0kB muxing overhead: unknown
-    ## ls: output/*.avi: No such file or directory
+    ## output/SampleFLIR.csq.avi
     ## output/JPGconverted.png
+    ## output/SampleFLIR.png
     ## output/frame00001.png
     ## output/frame00002.png
     ## output/frame00003.png
@@ -194,11 +208,13 @@ rm -r temp
 
 Which produces the following output:
 
-<https://github.com/gtatters/Thermimage/blob/master/Uploads/CSQconverted.avi?raw=true>
+<https://github.com/gtatters/ThermimageBash/blob/master/Uploads/CSQconverted.avi?raw=true>
 
 The above avi should open up in VLC player, but may or may not play properly. In ImageJ, with the ffmpeg plugin installed, the jpegls compression should work.
 
-![Sample PNG](https://github.com/gtatters/Thermimage/blob/master/Uploads/frame00001.png?raw=true) The above PNG file is a sample image of the 16 bit grayscale image. Although it looks washed out, it can be imported into ImageJ and the Brightness/Contrast changed for optimal viewing.
+<img src='Uploads/frame00001.png' align="centre">
+
+The above PNG file is a sample image of the 16 bit grayscale image. Although it looks washed out, it can be imported into ImageJ and the Brightness/Contrast changed for optimal viewing.
 
 ### Workflow to convert seq (640x480) to avi file
 
@@ -237,7 +253,6 @@ cd ~/IRconvert
 rm -r temp
 ```
 
-    ## Processing /Users/GlennTattersall/IRconvert/SampleFLIR/SampleFLIR.seq
     ## frame00001.fff
     ## frame00002.fff
     ## frame00003.fff
@@ -326,7 +341,6 @@ rm -r temp
     ##    28 image files read
     ## temp/thermalvid.raw
     ## 
-    ## Processing temp/thermalvid.raw
     ## temp/frame00001.tiff
     ## temp/frame00002.tiff
     ## temp/frame00003.tiff
@@ -356,18 +370,18 @@ rm -r temp
     ## temp/frame00027.tiff
     ## temp/frame00028.tiff
     ## 
-    ## ffmpeg version 3.4 Copyright (c) 2000-2017 the FFmpeg developers
-    ##   built with Apple LLVM version 9.0.0 (clang-900.0.38)
-    ##   configuration: --prefix=/usr/local/Cellar/ffmpeg/3.4 --enable-shared --enable-pthreads --enable-version3 --enable-hardcoded-tables --enable-avresample --cc=clang --host-cflags= --host-ldflags= --enable-gpl --enable-libmp3lame --enable-libvpx --enable-libx264 --enable-libxvid --enable-opencl --enable-videotoolbox --disable-lzma
-    ##   libavutil      55. 78.100 / 55. 78.100
-    ##   libavcodec     57.107.100 / 57.107.100
-    ##   libavformat    57. 83.100 / 57. 83.100
-    ##   libavdevice    57. 10.100 / 57. 10.100
-    ##   libavfilter     6.107.100 /  6.107.100
-    ##   libavresample   3.  7.  0 /  3.  7.  0
-    ##   libswscale      4.  8.100 /  4.  8.100
-    ##   libswresample   2.  9.100 /  2.  9.100
-    ##   libpostproc    54.  7.100 / 54.  7.100
+    ## ffmpeg version 4.1 Copyright (c) 2000-2018 the FFmpeg developers
+    ##   built with Apple LLVM version 10.0.0 (clang-1000.11.45.5)
+    ##   configuration: --prefix=/usr/local/Cellar/ffmpeg/4.1_1 --enable-shared --enable-pthreads --enable-version3 --enable-hardcoded-tables --enable-avresample --cc=clang --host-cflags= --host-ldflags= --enable-ffplay --enable-gpl --enable-libmp3lame --enable-libopus --enable-libsnappy --enable-libtheora --enable-libvorbis --enable-libvpx --enable-libx264 --enable-libx265 --enable-libxvid --enable-lzma --enable-opencl --enable-videotoolbox
+    ##   libavutil      56. 22.100 / 56. 22.100
+    ##   libavcodec     58. 35.100 / 58. 35.100
+    ##   libavformat    58. 20.100 / 58. 20.100
+    ##   libavdevice    58.  5.100 / 58.  5.100
+    ##   libavfilter     7. 40.101 /  7. 40.101
+    ##   libavresample   4.  0.  0 /  4.  0.  0
+    ##   libswscale      5.  3.100 /  5.  3.100
+    ##   libswresample   3.  3.100 /  3.  3.100
+    ##   libpostproc    55.  3.100 / 55.  3.100
     ## Input #0, image2, from '/Users/GlennTattersall/IRconvert/temp/frame%05d.tiff':
     ##   Duration: 00:00:00.93, start: 0.000000, bitrate: N/A
     ##     Stream #0:0: Video: tiff, gray16le, 640x480 [SAR 1:1 DAR 4:3], 30 fps, 30 tbr, 30 tbn, 30 tbc
@@ -377,24 +391,24 @@ rm -r temp
     ## Incompatible pixel format 'gray16be' for codec 'jpegls', auto-selecting format 'gray16le'
     ## Output #0, avi, to 'SEQconvertedjpegls.avi':
     ##   Metadata:
-    ##     ISFT            : Lavf57.83.100
+    ##     ISFT            : Lavf58.20.100
     ##     Stream #0:0: Video: jpegls (MJLS / 0x534C4A4D), gray16le, 640x480 [SAR 1:1 DAR 4:3], q=2-31, 200 kb/s, 30 fps, 30 tbn, 30 tbc
     ##     Metadata:
-    ##       encoder         : Lavc57.107.100 jpegls
-    ## frame=   28 fps=0.0 q=-0.0 Lsize=    5763kB time=00:00:00.93 bitrate=50583.9kbits/s speed=9.86x    
+    ##       encoder         : Lavc58.35.100 jpegls
+    ## frame=   28 fps=0.0 q=-0.0 Lsize=    5763kB time=00:00:00.93 bitrate=50583.9kbits/s speed=10.2x    
     ## video:5757kB audio:0kB subtitle:0kB other streams:0kB global headers:0kB muxing overhead: 0.109466%
-    ## ffmpeg version 3.4 Copyright (c) 2000-2017 the FFmpeg developers
-    ##   built with Apple LLVM version 9.0.0 (clang-900.0.38)
-    ##   configuration: --prefix=/usr/local/Cellar/ffmpeg/3.4 --enable-shared --enable-pthreads --enable-version3 --enable-hardcoded-tables --enable-avresample --cc=clang --host-cflags= --host-ldflags= --enable-gpl --enable-libmp3lame --enable-libvpx --enable-libx264 --enable-libxvid --enable-opencl --enable-videotoolbox --disable-lzma
-    ##   libavutil      55. 78.100 / 55. 78.100
-    ##   libavcodec     57.107.100 / 57.107.100
-    ##   libavformat    57. 83.100 / 57. 83.100
-    ##   libavdevice    57. 10.100 / 57. 10.100
-    ##   libavfilter     6.107.100 /  6.107.100
-    ##   libavresample   3.  7.  0 /  3.  7.  0
-    ##   libswscale      4.  8.100 /  4.  8.100
-    ##   libswresample   2.  9.100 /  2.  9.100
-    ##   libpostproc    54.  7.100 / 54.  7.100
+    ## ffmpeg version 4.1 Copyright (c) 2000-2018 the FFmpeg developers
+    ##   built with Apple LLVM version 10.0.0 (clang-1000.11.45.5)
+    ##   configuration: --prefix=/usr/local/Cellar/ffmpeg/4.1_1 --enable-shared --enable-pthreads --enable-version3 --enable-hardcoded-tables --enable-avresample --cc=clang --host-cflags= --host-ldflags= --enable-ffplay --enable-gpl --enable-libmp3lame --enable-libopus --enable-libsnappy --enable-libtheora --enable-libvorbis --enable-libvpx --enable-libx264 --enable-libx265 --enable-libxvid --enable-lzma --enable-opencl --enable-videotoolbox
+    ##   libavutil      56. 22.100 / 56. 22.100
+    ##   libavcodec     58. 35.100 / 58. 35.100
+    ##   libavformat    58. 20.100 / 58. 20.100
+    ##   libavdevice    58.  5.100 / 58.  5.100
+    ##   libavfilter     7. 40.101 /  7. 40.101
+    ##   libavresample   4.  0.  0 /  4.  0.  0
+    ##   libswscale      5.  3.100 /  5.  3.100
+    ##   libswresample   3.  3.100 /  3.  3.100
+    ##   libpostproc    55.  3.100 / 55.  3.100
     ## Input #0, image2, from '/Users/GlennTattersall/IRconvert/temp/frame%05d.tiff':
     ##   Duration: 00:00:00.93, start: 0.000000, bitrate: N/A
     ##     Stream #0:0: Video: tiff, gray16le, 640x480 [SAR 1:1 DAR 4:3], 30 fps, 30 tbr, 30 tbn, 30 tbc
@@ -403,18 +417,20 @@ rm -r temp
     ## Press [q] to stop, [?] for help
     ## Output #0, avi, to 'SEQconvertedpng.avi':
     ##   Metadata:
-    ##     ISFT            : Lavf57.83.100
+    ##     ISFT            : Lavf58.20.100
     ##     Stream #0:0: Video: png (MPNG / 0x474E504D), gray16be, 640x480 [SAR 1:1 DAR 4:3], q=2-31, 200 kb/s, 30 fps, 30 tbn, 30 tbc
     ##     Metadata:
-    ##       encoder         : Lavc57.107.100 png
-    ## frame=   28 fps=0.0 q=-0.0 Lsize=   10032kB time=00:00:00.93 bitrate=88049.1kbits/s speed=2.86x    
+    ##       encoder         : Lavc58.35.100 png
+    ## frame=   28 fps=0.0 q=-0.0 Lsize=   10032kB time=00:00:00.93 bitrate=88049.1kbits/s speed=3.94x    
     ## video:10025kB audio:0kB subtitle:0kB other streams:0kB global headers:0kB muxing overhead: 0.062800%
     ## 
-    ## ls: output/*.avi: No such file or directory
+    ## output/SampleFLIR.csq.avi
 
 Which produces the following output:
 
-<https://github.com/gtatters/Thermimage/blob/master/Uploads/SEQconvertedjpegls.avi?raw=true> <https://github.com/gtatters/Thermimage/blob/master/Uploads/SEQconvertedpng.avi?raw=true>
+<https://github.com/gtatters/ThermimageBash/blob/master/Uploads/SEQconvertedjpegls.avi?raw=true>
+
+<https://github.com/gtatters/ThermimageBash/blob/master/Uploads/SEQconvertedpng.avi?raw=true>
 
 Note: the above avi should open up in VLC player, but may or may not play properly. In ImageJ, with the ffmpeg plugin installed, the jpegls compression should work.
 
@@ -438,7 +454,7 @@ exiftool ~/IRconvert/SampleFLIR/SampleFLIR.jpg -*Planck*
     ## Planck O                        : -7340
     ## Planck R2                       : 0.012545258
 
-![Sample PNG](https://github.com/gtatters/Thermimage/blob/master/Uploads/JPGconverted.png?raw=true)
+<img src='Uploads/JPGconverted.png' align="centre">
 
 ### Workflow to convert FLIR jpg multi-burst (with ultramax) to png file
 
@@ -453,7 +469,6 @@ Convert these .hex files to png ffmpeg -f image2 -vcodec jpegls -i "%02d.hex" -f
 ffmpeg -f image2 -vcodec jpegls -i "./Image/%02d.hex" -f image2 -vcodec png PNG/burst%02d.png
 
 Then try using fairSIM from github - a plug-in for ImageJ that produces the superresolution image
-
 
 ### References
 
